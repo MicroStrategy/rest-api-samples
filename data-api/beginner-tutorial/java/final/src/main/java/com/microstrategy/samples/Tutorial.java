@@ -19,7 +19,7 @@ import java.util.Map;
 public class Tutorial {
 
     //REST Server Connection Info
-    private static final String REST_BASE_URL = "https://demo.microstrategy.com/MicroStrategyLibrary2/api";
+    private static final String REST_BASE_URL = "https://demo.microstrategy.com/MicroStrategyLibrary/api";
     private static final String USER_NAME = "guest";
     private static final String PASSWORD = "";
 
@@ -107,8 +107,8 @@ public class Tutorial {
         System.out.println("Trying To Login ...");
 
         String url = REST_BASE_URL + "/auth/login";
-        //body json format: {"username":"String","password":"String"}
-        String bodyJsonStr = "{\"username\":\"" + userName + "\",\"" + password + "\":\"\"}";// userName and password need to be escaped by (\",etc)
+        
+        String bodyJsonStr = "{\"loginMode\": 8 }";
 
         // set request parameters.
         RequestParameters requestParameters = new RequestParameters();

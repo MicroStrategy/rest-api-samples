@@ -37,7 +37,7 @@ import java.util.Map;
 public class Tutorial {
 
     //REST Server Connection Info
-    private static final String REST_BASE_URL = "https://demo.microstrategy.com/MicroStrategyLibrary2/api";
+    private static final String REST_BASE_URL = "https://demo.microstrategy.com/MicroStrategyLibrary/api";
     private static final String USER_NAME = "guest";
     private static final String PASSWORD = "";
 
@@ -209,7 +209,7 @@ public class RequestWrapper {
 ```
 
 ## 1. Login In
-Authenticate a user with provided **username** and **password** through endpoint [**_POST /auth/login_**](https://demo.microstrategy.com/MicroStrategyLibrary2/api-docs/index.html?#!/Authentication/postLogin) and return an **MicroStrategy auth Token** in the response header.
+Authenticate a user with provided **username** and **password** through endpoint [**_POST /auth/login_**](https://demo.microstrategy.com/MicroStrategyLibrary/api-docs/index.html?#!/Authentication/postLogin) and return an **MicroStrategy auth Token** in the response header.
 
 ### Implement as below:
 ```java
@@ -268,14 +268,14 @@ public class Tutorial {
 {Cache-Control=[no-cache, no-store, max-age=0, must-revalidate], Server=[MicroStrategy], 
 Connection=[keep-alive], 
 
-Set-Cookie=[JSESSIONID=FBBD865E62C86A9CCA4A88D8F1966F81; Path=/MicroStrategyLibrary2;  Secure; HttpOnly, AWSALB=OmDwAIpAmUvks6wD/4Xyqxbql6QnL89Q7IGB4g3x06IH1E6QG+igTEG/PkMp0AAMF2xuKr05hmPmwP6xm5aT0pscRcJ4lYJp1a4IEiBfDKJkI/N5hhX4mfLWAey7; Expires=Thu, 06 Dec 2018 06:51:19 GMT; Path=/], 
+Set-Cookie=[JSESSIONID=FBBD865E62C86A9CCA4A88D8F1966F81; Path=/MicroStrategyLibrary;  Secure; HttpOnly, AWSALB=OmDwAIpAmUvks6wD/4Xyqxbql6QnL89Q7IGB4g3x06IH1E6QG+igTEG/PkMp0AAMF2xuKr05hmPmwP6xm5aT0pscRcJ4lYJp1a4IEiBfDKJkI/N5hhX4mfLWAey7; Expires=Thu, 06 Dec 2018 06:51:19 GMT; Path=/], 
 
 Pragma=[no-cache], 
 Expires=[0], Date=[Thu, 29 Nov 2018 06:51:19 GMT], 
 X-MSTR-AuthToken=[caqtiltv3hapqpq6i6uhml492o]}
 ```
 ### 2. Publish Cube(Optional) 
-Publish a cube with provided **cube Id** in a specific project with **project Id** through endpoint [**_POST /cubes/{cubeId}_**](https://demo.microstrategy.com/MicroStrategyLibrary2/api-docs/index.html?#!/Cubes/publishCube) .
+Publish a cube with provided **cube Id** in a specific project with **project Id** through endpoint [**_POST /cubes/{cubeId}_**](https://demo.microstrategy.com/MicroStrategyLibrary/api-docs/index.html?#!/Cubes/publishCube) .
 ### Implement as below:
 ```java
 public class Tutorial {
@@ -326,7 +326,7 @@ public class Tutorial {
 200
 ```
 ## 3. Retrieving cube definition
-Get the definition of a specific cube with provided **cube id** through endpoint [**_GET /cubes/{cubeId}_**](https://demo.microstrategy.com/MicroStrategyLibrary2/api-docs/index.html?#!/Cubes/getDefinition), the cube definition include attributes and metrics in the cube.
+Get the definition of a specific cube with provided **cube id** through endpoint [**_GET /cubes/{cubeId}_**](https://demo.microstrategy.com/MicroStrategyLibrary/api-docs/index.html?#!/Cubes/getDefinition), the cube definition include attributes and metrics in the cube.
 ### Implement as below:
 ```java
 public class Tutorial {
@@ -421,11 +421,11 @@ public class Tutorial {
 }
 ```
 ## 4. Retrieving Cube Raw Data 
-Here firstly we will introduce some Data Models which is used to contruct request body for endpoint [**_POST /cubes/{cubeId}/instances_**](https://demo.microstrategy.com/MicroStrategyLibrary2/api-docs/index.html?#!/Cubes/createCubeInstance) used in this section.
+Here firstly we will introduce some Data Models which is used to contruct request body for endpoint [**_POST /cubes/{cubeId}/instances_**](https://demo.microstrategy.com/MicroStrategyLibrary/api-docs/index.html?#!/Cubes/createCubeInstance) used in this section.
 We can add requestObjects, metric limit, sort and view filter to the request body to control and limit the returned cube raw data. Details java models as below:
 
 ### 4.1 Limit & offset feature
-Create a new instance of a specific cube with provide **cube id** through endpoint [**_POST /cubes/{cubeId}/instances_**](https://demo.microstrategy.com/MicroStrategyLibrary2/api-docs/index.html?#!/Cubes/createCubeInstance) and return the cube **instance Id** and cube **raw data** in the response body. It can be set **limit** and **offset** query parameter to limit returned cube data.
+Create a new instance of a specific cube with provide **cube id** through endpoint [**_POST /cubes/{cubeId}/instances_**](https://demo.microstrategy.com/MicroStrategyLibrary/api-docs/index.html?#!/Cubes/createCubeInstance) and return the cube **instance Id** and cube **raw data** in the response body. It can be set **limit** and **offset** query parameter to limit returned cube data.
 #### Implement as below:
 ```java
 public class Tutorial {
@@ -605,7 +605,7 @@ public class Tutorial {
 }
 ```
 ### 4.2 Retrieving cube data with requestObjects
-Create a new instance of a specific cube with provided **cube id** through endpoint  [**_POST /cubes/{cubeId}/instances_**](https://demo.microstrategy.com/MicroStrategyLibrary2/api-docs/index.html?#!/Cubes/createCubeInstance) and return the cube instance Id and cube raw data in the response body. It can be set **requestObjects** json data in the request body to limit returned cube data including specify attributes and metrics. Details see in official document for [RequestedObjects feature](https://lw.microstrategy.com/msdz/MSDL/GARelease_Current/docs/projects/RESTSDK/Content/topics/REST_API/REST_API_Filtering_RptsCubes_requestedObjects.htm).
+Create a new instance of a specific cube with provided **cube id** through endpoint  [**_POST /cubes/{cubeId}/instances_**](https://demo.microstrategy.com/MicroStrategyLibrary/api-docs/index.html?#!/Cubes/createCubeInstance) and return the cube instance Id and cube raw data in the response body. It can be set **requestObjects** json data in the request body to limit returned cube data including specify attributes and metrics. Details see in official document for [RequestedObjects feature](https://lw.microstrategy.com/msdz/MSDL/GARelease_Current/docs/projects/RESTSDK/Content/topics/REST_API/REST_API_Filtering_RptsCubes_requestedObjects.htm).
 
 Based on last step, the request body will be added new part: requestObjects  json data.
 #### Implement as below:
@@ -808,7 +808,7 @@ public class Tutorial {
 }
 ```
 ### 4.3 Retrieving cube data with sorting
-Create a new instance of a specific cube with provided **cube id** through endpoint  [**_POST /cubes/{cubeId}/instances_**](https://demo.microstrategy.com/MicroStrategyLibrary2/api-docs/index.html?#!/Cubes/createCubeInstance)  and return the cube **instance Id** and cube **raw data** in the response body. It can be set **sorting json data** in the request body to sort cube data. Details see in official document for [Sorting feature](https://lw.microstrategy.com/msdz/MSDL/GARelease_Current/docs/projects/RESTSDK/Content/topics/REST_API/REST_API_Sorting_data.htm).  
+Create a new instance of a specific cube with provided **cube id** through endpoint  [**_POST /cubes/{cubeId}/instances_**](https://demo.microstrategy.com/MicroStrategyLibrary/api-docs/index.html?#!/Cubes/createCubeInstance)  and return the cube **instance Id** and cube **raw data** in the response body. It can be set **sorting json data** in the request body to sort cube data. Details see in official document for [Sorting feature](https://lw.microstrategy.com/msdz/MSDL/GARelease_Current/docs/projects/RESTSDK/Content/topics/REST_API/REST_API_Sorting_data.htm).  
 
 Based on last-step, the request body will be added sorting json data.
 #### Implement as below:
@@ -1001,7 +1001,7 @@ public class Tutorial {
 }
 ```
 ### 4.4 Retrieving cube data with metricLimits
-Create a new instance of a specific cube with provided **cube id** through endpoint  [**_POST /cubes/{cubeId}/instances_**](https://demo.microstrategy.com/MicroStrategyLibrary2/api-docs/index.html?#!/Cubes/createCubeInstance) and return the cube **instance Id** and cube **raw data** in the response body. It can be set **metric limits** json data in the request body to filter cube data based on metric in the template level (grid level). Details see in official document for [Metric limits feature](https://lw.microstrategy.com/msdz/MSDL/GARelease_Current/docs/projects/RESTSDK/Content/topics/REST_API/REST_API_Filtering_RptsCubes_metricLimits.htm).
+Create a new instance of a specific cube with provided **cube id** through endpoint  [**_POST /cubes/{cubeId}/instances_**](https://demo.microstrategy.com/MicroStrategyLibrary/api-docs/index.html?#!/Cubes/createCubeInstance) and return the cube **instance Id** and cube **raw data** in the response body. It can be set **metric limits** json data in the request body to filter cube data based on metric in the template level (grid level). Details see in official document for [Metric limits feature](https://lw.microstrategy.com/msdz/MSDL/GARelease_Current/docs/projects/RESTSDK/Content/topics/REST_API/REST_API_Filtering_RptsCubes_metricLimits.htm).
 
 Based on last-step, the request body will be added new part for metric limits json data.
 #### Implement as below:
@@ -1237,7 +1237,7 @@ public class Tutorial {
 }
 ```
 ### 4.5 Retrieving cube data with viewFilter
-Create a new instance of a specific cube with provided **cube id** through endpoint  [**_POST /cubes/{cubeId}/instances_**](https://demo.microstrategy.com/MicroStrategyLibrary2/api-docs/index.html?#!/Cubes/createCubeInstance) and return the cube **instance Id** and cube **raw data** in the response body. It can be set **view filter** json data in the request body to filter cube data based on metric or attribute in the dataset level. Details see in official document for [view filter feature](https://lw.microstrategy.com/msdz/MSDL/GARelease_Current/docs/projects/RESTSDK/Content/topics/REST_API/REST_API_Filtering_RptsCubes_ViewFilter.htm).
+Create a new instance of a specific cube with provided **cube id** through endpoint  [**_POST /cubes/{cubeId}/instances_**](https://demo.microstrategy.com/MicroStrategyLibrary/api-docs/index.html?#!/Cubes/createCubeInstance) and return the cube **instance Id** and cube **raw data** in the response body. It can be set **view filter** json data in the request body to filter cube data based on metric or attribute in the dataset level. Details see in official document for [view filter feature](https://lw.microstrategy.com/msdz/MSDL/GARelease_Current/docs/projects/RESTSDK/Content/topics/REST_API/REST_API_Filtering_RptsCubes_ViewFilter.htm).
 
 Based on last-step, the request body will be added new part for view filters json data.
 #### Implement as below:
@@ -1507,7 +1507,7 @@ public class Tutorial {
 }
 ```
 ## 5. Retrieving cube data with above created instanceId
-Get the results of a previously **created instance id** of a specific cube with provided **cube id** through endpoint  [**_GET /cubes/{cubeId}/instances/{instanceId}_**](https://demo.microstrategy.com/MicroStrategyLibrary2/api-docs/index.html?#!/Cubes/getReport)
+Get the results of a previously **created instance id** of a specific cube with provided **cube id** through endpoint  [**_GET /cubes/{cubeId}/instances/{instanceId}_**](https://demo.microstrategy.com/MicroStrategyLibrary/api-docs/index.html?#!/Cubes/getReport)
 
 Based on created instanceId from last-step response
 ### Implement as below:
@@ -1731,7 +1731,7 @@ public class Tutorial {
 }
 ```
 ## 6. Logout 
-Close all existing sessions for the authenticated user through endpoint [**_POST /auth/logout_**](https://demo.microstrategy.com/MicroStrategyLibrary2/api-docs/index.html?#!/Authentication/postLogout) .Logout with the **used authToken**.
+Close all existing sessions for the authenticated user through endpoint [**_POST /auth/logout_**](https://demo.microstrategy.com/MicroStrategyLibrary/api-docs/index.html?#!/Authentication/postLogout) .Logout with the **used authToken**.
 ### Implement as below:
 ```java
 public class Tutorial {

@@ -19,7 +19,7 @@ import java.util.Map;
 public class Tutorial {
 
     //REST Server Connection Info
-    private static final String REST_BASE_URL = "https://demo.microstrategy.com/MicroStrategyLibrary2/api";
+    private static final String REST_BASE_URL = "https://demo.microstrategy.com/MicroStrategyLibrary/api";
     private static final String USER_NAME = "guest";
     private static final String PASSWORD = "";
 

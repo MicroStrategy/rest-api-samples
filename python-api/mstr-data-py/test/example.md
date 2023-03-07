@@ -3,7 +3,7 @@ from mstrdata import microstrategy
 PROJECT_NAME = "MicroStrategy Tutorial" # MicroStrategy Project Name
 USER_NAME = "guest"
 PASSWORD = ""
-BASE_URL = "https://demo.microstrategy.com/MicroStrategyLibrary2/api" # URL to server instance
+BASE_URL = "https://demo.microstrategy.com/MicroStrategyLibrary/api" # URL to server instance
 REPORT_ID = '2627169745E4D76AC2A16980DCF35B9A' # MicroStrategy report ID (Individual Sales Report)
 CUBE_ID = 'DF05CEA04CCA432397E466A55F1A9EC7' # MicroStrategy cube ID (Order Cube)
 

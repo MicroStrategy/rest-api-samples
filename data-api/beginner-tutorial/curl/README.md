@@ -1,25 +1,35 @@
-## References   
+## References
+
 ### [Tutorial overview](../README.md)  
+
 ### [NodeJs implementation](../nodejs/README.md)  
+
 ### [Java implementation](../java/README.md)  
 
 # Curl implementation
-## 1. Login In
-Authenticate a user with provided **username** and **password** through endpoint [**_POST /auth/login_**](https://demo.microstrategy.com/MicroStrategyLibrary2/api-docs/index.html?#!/Authentication/postLogin) and return an **MicroStrategy auth Token** in the response header.
 
-### Implement as below:
+## 1. Login In
+
+Authenticate a user with provided **username** and **password** through endpoint [**_POST /auth/login_**](https://demo.microstrategy.com/MicroStrategyLibrary/api-docs/index.html?#!/Authentication/postLogin) and return an **MicroStrategy auth Token** in the response header.
+
+### Implement as below
+
 ```
 curl -X -i POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ 
    "username": "guest", 
    "password": "" 
    
- }' 'https://demo.microstrategy.com/MicroStrategyLibrary2/api/auth/login'
+ }' 'https://demo.microstrategy.com/MicroStrategyLibrary/api/auth/login'
 ```
-### Response code:
+
+### Response code
+
 ```
 204
 ```
-### Response header:
+
+### Response header
+
 ````
 {
   "status": "204",
@@ -27,33 +37,47 @@ curl -X -i POST --header 'Content-Type: application/json' --header 'Accept: appl
   "date": "Tue, 06 Nov 2018 06:04:33 GMT",
   "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
   "x-mstr-authtoken": "qjtu5qongu8ev62su8nnnm3bco",
-  "Set-Cookie": "JSESSIONID=3AD87246016156A33D2501785CEAE3DF; Path=/MicroStrategyLibrary2; Secure; HttpOnly"
+  "Set-Cookie": "JSESSIONID=3AD87246016156A33D2501785CEAE3DF; Path=/MicroStrategyLibrary; Secure; HttpOnly"
   "server": "MicroStrategy",
   "expires": "0",
   "content-type": null
 }
 ````
-### 2. Publish Cube 
-Publish a cube with provided **cube Id** in a specific project with **project Id** through endpoint [**_POST /cubes/{cubeId}_**](https://demo.microstrategy.com/MicroStrategyLibrary2/api-docs/index.html?#!/Cubes/publishCube) .
-### Implement as below:
+
+### 2. Publish Cube
+
+Publish a cube with provided **cube Id** in a specific project with **project Id** through endpoint [**_POST /cubes/{cubeId}_**](https://demo.microstrategy.com/MicroStrategyLibrary/api-docs/index.html?#!/Cubes/publishCube) .
+
+### Implement as below
+
 ```
-curl -X POST --cookie "JSESSIONID=3AD87246016156A33D2501785CEAE3DF" --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'X-MSTR-AuthToken: r4elvj3js0mlm3q8njiao3e7kq' --header 'X-MSTR-ProjectID: B7CA92F04B9FAE8D941C3E9B7E0CD754' 'https://demo.microstrategy.com/MicroStrategyLibrary2/api/cubes/8CCD8D9D4051A4C533C719A6590DEED8'
+curl -X POST --cookie "JSESSIONID=3AD87246016156A33D2501785CEAE3DF" --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'X-MSTR-AuthToken: r4elvj3js0mlm3q8njiao3e7kq' --header 'X-MSTR-ProjectID: B7CA92F04B9FAE8D941C3E9B7E0CD754' 'https://demo.microstrategy.com/MicroStrategyLibrary/api/cubes/8CCD8D9D4051A4C533C719A6590DEED8'
 ```
-### Response code:
+
+### Response code
+
 ```
 200
 ```
+
 ## 3. Retrieving cube definition
-Get the definition of a specific cube with provided **cube id** through endpoint [**_GET /cubes/{cubeId}_**](https://demo.microstrategy.com/MicroStrategyLibrary2/api-docs/index.html?#!/Cubes/getDefinition), the cube definition include attributes and metrics in the cube.
-### Implement as below:
+
+Get the definition of a specific cube with provided **cube id** through endpoint [**_GET /cubes/{cubeId}_**](https://demo.microstrategy.com/MicroStrategyLibrary/api-docs/index.html?#!/Cubes/getDefinition), the cube definition include attributes and metrics in the cube.
+
+### Implement as below
+
 ```
-curl -X GET --cookie "JSESSIONID=3AD87246016156A33D2501785CEAE3DF" --header 'Accept: application/json' --header 'X-MSTR-AuthToken: i75h4210v19k8btgvm9t106m8k' --header 'X-MSTR-ProjectID: B7CA92F04B9FAE8D941C3E9B7E0CD754' 'https://demo.microstrategy.com/MicroStrategyLibrary2/api/cubes/8CCD8D9D4051A4C533C719A6590DEED8'
+curl -X GET --cookie "JSESSIONID=3AD87246016156A33D2501785CEAE3DF" --header 'Accept: application/json' --header 'X-MSTR-AuthToken: i75h4210v19k8btgvm9t106m8k' --header 'X-MSTR-ProjectID: B7CA92F04B9FAE8D941C3E9B7E0CD754' 'https://demo.microstrategy.com/MicroStrategyLibrary/api/cubes/8CCD8D9D4051A4C533C719A6590DEED8'
 ```
-### Response code:
+
+### Response code
+
 ```
 200
 ```
-### Response body:
+
+### Response body
+
 ```
 {
   "id": "8CCD8D9D4051A4C533C719A6590DEED8",
@@ -94,18 +118,27 @@ curl -X GET --cookie "JSESSIONID=3AD87246016156A33D2501785CEAE3DF" --header 'Acc
   }
 }
 ```
-## 4. Retrieving cube raw data 
+
+## 4. Retrieving cube raw data
+
 ### 4.1 limit & offset feature
-Create a new instance of a specific cube with provide **cube id** through endpoint [**_POST /cubes/{cubeId}/instances_**](https://demo.microstrategy.com/MicroStrategyLibrary2/api-docs/index.html?#!/Cubes/createCubeInstance) and return the cube **instance Id** and cube **raw data** in the response body. It can be set **limit** and **offset** query parameter to limit returned cube data.
-#### Implement as below:
+
+Create a new instance of a specific cube with provide **cube id** through endpoint [**_POST /cubes/{cubeId}/instances_**](https://demo.microstrategy.com/MicroStrategyLibrary/api-docs/index.html?#!/Cubes/createCubeInstance) and return the cube **instance Id** and cube **raw data** in the response body. It can be set **limit** and **offset** query parameter to limit returned cube data.
+
+#### Implement as below
+
 ```
-curl -X POST --cookie "JSESSIONID=3AD87246016156A33D2501785CEAE3DF" --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'X-MSTR-AuthToken: 42re87q5hs8eg82bc3pjdcjh2a' --header 'X-MSTR-ProjectID: B7CA92F04B9FAE8D941C3E9B7E0CD754' -d '{}' 'https://demo.microstrategy.com/MicroStrategyLibrary2/api/cubes/8CCD8D9D4051A4C533C719A6590D
+curl -X POST --cookie "JSESSIONID=3AD87246016156A33D2501785CEAE3DF" --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'X-MSTR-AuthToken: 42re87q5hs8eg82bc3pjdcjh2a' --header 'X-MSTR-ProjectID: B7CA92F04B9FAE8D941C3E9B7E0CD754' -d '{}' 'https://demo.microstrategy.com/MicroStrategyLibrary/api/cubes/8CCD8D9D4051A4C533C719A6590D
 ```
-#### Response code:
+
+#### Response code
+
 ```
 200
 ```
-#### Response body:
+
+#### Response body
+
 ```
 {
   "id": "8CCD8D9D4051A4C533C719A6590DEED8",
@@ -212,11 +245,15 @@ curl -X POST --cookie "JSESSIONID=3AD87246016156A33D2501785CEAE3DF" --header 'Co
   }
 }
 ```
+
 ### 4.2 Retrieving cube data with requestObjects
-Create a new instance of a specific cube with provided **cube id** through endpoint  [**_POST /cubes/{cubeId}/instances_**](https://demo.microstrategy.com/MicroStrategyLibrary2/api-docs/index.html?#!/Cubes/createCubeInstance) and return the cube instance Id and cube raw data in the response body. It can be set **requestObjects** json data in the request body to limit returned cube data including specify attributes and metrics. Details see in official document for [RequestedObjects feature](https://lw.microstrategy.com/msdz/MSDL/GARelease_Current/docs/projects/RESTSDK/Content/topics/REST_API/REST_API_Filtering_RptsCubes_requestedObjects.htm).
+
+Create a new instance of a specific cube with provided **cube id** through endpoint  [**_POST /cubes/{cubeId}/instances_**](https://demo.microstrategy.com/MicroStrategyLibrary/api-docs/index.html?#!/Cubes/createCubeInstance) and return the cube instance Id and cube raw data in the response body. It can be set **requestObjects** json data in the request body to limit returned cube data including specify attributes and metrics. Details see in official document for [RequestedObjects feature](https://lw.microstrategy.com/msdz/MSDL/GARelease_Current/docs/projects/RESTSDK/Content/topics/REST_API/REST_API_Filtering_RptsCubes_requestedObjects.htm).
 
 Based on last step, the request body will be added new part: requestObjects  json data.
-#### Implement as below:
+
+#### Implement as below
+
 ```
 curl -X POST --cookie "JSESSIONID=3AD87246016156A33D2501785CEAE3DF" --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'X-MSTR-AuthToken: vvcaqfrj90s7jlorobifmouv7d' --header 'X-MSTR-ProjectID: B7CA92F04B9FAE8D941C3E9B7E0CD754' -d '{ 
    "requestedObjects": { 
@@ -241,13 +278,17 @@ curl -X POST --cookie "JSESSIONID=3AD87246016156A33D2501785CEAE3DF" --header 'Co
        } 
      ] 
    } 
- }' 'https://demo.microstrategy.com/MicroStrategyLibrary2/api/cubes/8CCD8D9D4051A4C533C719A6590DEED8/instances?offset=0&limit=10'
+ }' 'https://demo.microstrategy.com/MicroStrategyLibrary/api/cubes/8CCD8D9D4051A4C533C719A6590DEED8/instances?offset=0&limit=10'
 ```
-#### Response code:
+
+#### Response code
+
 ```
 200
 ```
-#### Response body:
+
+#### Response body
+
 ```
 {
   "id": "8CCD8D9D4051A4C533C719A6590DEED8",
@@ -337,11 +378,15 @@ curl -X POST --cookie "JSESSIONID=3AD87246016156A33D2501785CEAE3DF" --header 'Co
   }
 }
 ```
+
 ### 4.3 Retrieving cube data with sorting
-Create a new instance of a specific cube with provided **cube id** through endpoint  [**_POST /cubes/{cubeId}/instances_**](https://demo.microstrategy.com/MicroStrategyLibrary2/api-docs/index.html?#!/Cubes/createCubeInstance)  and return the cube **instance Id** and cube **raw data** in the response body. It can be set **sorting json data** in the request body to sort cube data. Details see in official document for [Sorting feature](https://lw.microstrategy.com/msdz/MSDL/GARelease_Current/docs/projects/RESTSDK/Content/topics/REST_API/REST_API_Sorting_data.htm).  
+
+Create a new instance of a specific cube with provided **cube id** through endpoint  [**_POST /cubes/{cubeId}/instances_**](https://demo.microstrategy.com/MicroStrategyLibrary/api-docs/index.html?#!/Cubes/createCubeInstance)  and return the cube **instance Id** and cube **raw data** in the response body. It can be set **sorting json data** in the request body to sort cube data. Details see in official document for [Sorting feature](https://lw.microstrategy.com/msdz/MSDL/GARelease_Current/docs/projects/RESTSDK/Content/topics/REST_API/REST_API_Sorting_data.htm).  
 
 Based on last-step, the request body will be added sorting json data.
-#### Implement as below:
+
+#### Implement as below
+
 ```
 curl -X POST --cookie "JSESSIONID=3AD87246016156A33D2501785CEAE3DF" --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'X-MSTR-AuthToken: i19lt2n39jk7miora6hpt48ors' --header 'X-MSTR-ProjectID: B7CA92F04B9FAE8D941C3E9B7E0CD754' -d '{ 
    "requestedObjects": { 
@@ -388,13 +433,17 @@ curl -X POST --cookie "JSESSIONID=3AD87246016156A33D2501785CEAE3DF" --header 'Co
        "order": "descending" 
      } 
    ] 
- }' 'https://demo.microstrategy.com/MicroStrategyLibrary2/api/cubes/8CCD8D9D4051A4C533C719A6590DEED8/instances?offset=0&limit=10'
+ }' 'https://demo.microstrategy.com/MicroStrategyLibrary/api/cubes/8CCD8D9D4051A4C533C719A6590DEED8/instances?offset=0&limit=10'
 ```
-#### Response code:
+
+#### Response code
+
 ```
 200  
 ```
-#### Response body:
+
+#### Response body
+
 ```
 {
   "id": "8CCD8D9D4051A4C533C719A6590DEED8",
@@ -445,11 +494,15 @@ curl -X POST --cookie "JSESSIONID=3AD87246016156A33D2501785CEAE3DF" --header 'Co
   }
 }
 ```
+
 ### 4.4 Retrieving cube data with metricLimits
-Create a new instance of a specific cube with provided **cube id** through endpoint  [**_POST /cubes/{cubeId}/instances_**](https://demo.microstrategy.com/MicroStrategyLibrary2/api-docs/index.html?#!/Cubes/createCubeInstance) and return the cube **instance Id** and cube **raw data** in the response body. It can be set **metric limits** json data in the request body to filter cube data based on metric in the template level (grid level). Details see in official document for [Metric limits feature](https://lw.microstrategy.com/msdz/MSDL/GARelease_Current/docs/projects/RESTSDK/Content/topics/REST_API/REST_API_Filtering_RptsCubes_metricLimits.htm).
+
+Create a new instance of a specific cube with provided **cube id** through endpoint  [**_POST /cubes/{cubeId}/instances_**](https://demo.microstrategy.com/MicroStrategyLibrary/api-docs/index.html?#!/Cubes/createCubeInstance) and return the cube **instance Id** and cube **raw data** in the response body. It can be set **metric limits** json data in the request body to filter cube data based on metric in the template level (grid level). Details see in official document for [Metric limits feature](https://lw.microstrategy.com/msdz/MSDL/GARelease_Current/docs/projects/RESTSDK/Content/topics/REST_API/REST_API_Filtering_RptsCubes_metricLimits.htm).
 
 Based on last-step, the request body will be added new part for metric limits json data.
-#### Implement as below:
+
+#### Implement as below
+
 ```
 curl -X POST --cookie "JSESSIONID=3AD87246016156A33D2501785CEAE3DF" --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'X-MSTR-AuthToken: i19lt2n39jk7miora6hpt48ors' --header 'X-MSTR-ProjectID: B7CA92F04B9FAE8D941C3E9B7E0CD754' -d '{ 
    "requestedObjects": { 
@@ -513,13 +566,17 @@ curl -X POST --cookie "JSESSIONID=3AD87246016156A33D2501785CEAE3DF" --header 'Co
        ] 
      } 
    } 
- }' 'https://demo.microstrategy.com/MicroStrategyLibrary2/api/cubes/8CCD8D9D4051A4C533C719A6590DEED8/instances?offset=0&limit=10'
+ }' 'https://demo.microstrategy.com/MicroStrategyLibrary/api/cubes/8CCD8D9D4051A4C533C719A6590DEED8/instances?offset=0&limit=10'
 ```
-#### Response code:
+
+#### Response code
+
 ```
 200  
 ```
-#### Response body:
+
+#### Response body
+
 ```
 {
   "id": "8CCD8D9D4051A4C533C719A6590DEED8",
@@ -589,11 +646,15 @@ curl -X POST --cookie "JSESSIONID=3AD87246016156A33D2501785CEAE3DF" --header 'Co
   }
 }
 ```
+
 ### 4.5 Retrieving cube data with viewFilter
-Create a new instance of a specific cube with provided **cube id** through endpoint  [**_POST /cubes/{cubeId}/instances_**](https://demo.microstrategy.com/MicroStrategyLibrary2/api-docs/index.html?#!/Cubes/createCubeInstance) and return the cube **instance Id** and cube **raw data** in the response body. It can be set **view filter** json data in the request body to filter cube data based on metric or attribute in the dataset level. Details see in official document for [view filter feature](https://lw.microstrategy.com/msdz/MSDL/GARelease_Current/docs/projects/RESTSDK/Content/topics/REST_API/REST_API_Filtering_RptsCubes_ViewFilter.htm).
+
+Create a new instance of a specific cube with provided **cube id** through endpoint  [**_POST /cubes/{cubeId}/instances_**](https://demo.microstrategy.com/MicroStrategyLibrary/api-docs/index.html?#!/Cubes/createCubeInstance) and return the cube **instance Id** and cube **raw data** in the response body. It can be set **view filter** json data in the request body to filter cube data based on metric or attribute in the dataset level. Details see in official document for [view filter feature](https://lw.microstrategy.com/msdz/MSDL/GARelease_Current/docs/projects/RESTSDK/Content/topics/REST_API/REST_API_Filtering_RptsCubes_ViewFilter.htm).
 
 Based on last-step, the request body will be added new part for view filters json data.
-#### Implement as below:
+
+#### Implement as below
+
 ```
 curl -X POST --cookie "JSESSIONID=3AD87246016156A33D2501785CEAE3DF" --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'X-MSTR-AuthToken: i19lt2n39jk7miora6hpt48ors' --header 'X-MSTR-ProjectID: B7CA92F04B9FAE8D941C3E9B7E0CD754' -d '{ 
    "requestedObjects": { 
@@ -686,13 +747,17 @@ curl -X POST --cookie "JSESSIONID=3AD87246016156A33D2501785CEAE3DF" --header 'Co
        } 
      ] 
    } 
- }' 'https://demo.microstrategy.com/MicroStrategyLibrary2/api/cubes/8CCD8D9D4051A4C533C719A6590DEED8/instances?offset=0&limit=10'
+ }' 'https://demo.microstrategy.com/MicroStrategyLibrary/api/cubes/8CCD8D9D4051A4C533C719A6590DEED8/instances?offset=0&limit=10'
 ```
-#### Response code:
+
+#### Response code
+
 ```
 200
 ```
-#### Response body:
+
+#### Response body
+
 ```
 {
   "id": "8CCD8D9D4051A4C533C719A6590DEED8",
@@ -760,19 +825,27 @@ curl -X POST --cookie "JSESSIONID=3AD87246016156A33D2501785CEAE3DF" --header 'Co
   }
 }
 ```
+
 ## 5. Retrieving cube data with aboved created instanceId
-Get the results of a previously **created instance id** of a specific cube with provided **cube id** through endpoint  [**_GET /cubes/{cubeId}/instances/{instanceId}_**](https://demo.microstrategy.com/MicroStrategyLibrary2/api-docs/index.html?#!/Cubes/getReport)
+
+Get the results of a previously **created instance id** of a specific cube with provided **cube id** through endpoint  [**_GET /cubes/{cubeId}/instances/{instanceId}_**](https://demo.microstrategy.com/MicroStrategyLibrary/api-docs/index.html?#!/Cubes/getReport)
 
 Based on created instanceId from last-step response
-### Implement as below:
+
+### Implement as below
+
 ```
-curl -X GET --cookie "JSESSIONID=3AD87246016156A33D2501785CEAE3DF" --header 'Accept: application/json' --header 'X-MSTR-AuthToken: henc0q0prfdmqu0tmmme3jcigl' --header 'X-MSTR-ProjectID: B7CA92F04B9FAE8D941C3E9B7E0CD754' 'https://demo.microstrategy.com/MicroStrategyLibrary2/api/cubes/8CCD8D9D4051A4C533C719A6590DEED8/instances/1F372B1611E8E197E12F0080EFD593A4?offset=0&limit=10'
+curl -X GET --cookie "JSESSIONID=3AD87246016156A33D2501785CEAE3DF" --header 'Accept: application/json' --header 'X-MSTR-AuthToken: henc0q0prfdmqu0tmmme3jcigl' --header 'X-MSTR-ProjectID: B7CA92F04B9FAE8D941C3E9B7E0CD754' 'https://demo.microstrategy.com/MicroStrategyLibrary/api/cubes/8CCD8D9D4051A4C533C719A6590DEED8/instances/1F372B1611E8E197E12F0080EFD593A4?offset=0&limit=10'
 ```
-### Response code:
+
+### Response code
+
 ```
 200
 ```
-### Response body:
+
+### Response body
+
 ```
 {
   "id": "8CCD8D9D4051A4C533C719A6590DEED8",
@@ -919,17 +992,25 @@ curl -X GET --cookie "JSESSIONID=3AD87246016156A33D2501785CEAE3DF" --header 'Acc
   }
 }
 ```
-## 6. Logout 
-Close all existing sessions for the authenticated user through endpoint [**_POST /auth/logout_**](https://demo.microstrategy.com/MicroStrategyLibrary2/api-docs/index.html?#!/Authentication/postLogout) .Logout with the **used authToken**.
-### Implement as below:
+
+## 6. Logout
+
+Close all existing sessions for the authenticated user through endpoint [**_POST /auth/logout_**](https://demo.microstrategy.com/MicroStrategyLibrary/api-docs/index.html?#!/Authentication/postLogout) .Logout with the **used authToken**.
+
+### Implement as below
+
 ```
-curl -X POST --cookie "JSESSIONID=3AD87246016156A33D2501785CEAE3DF" --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'X-MSTR-AuthToken: henc0q0prfdmqu0tmmme3jcigl' 'https://demo.microstrategy.com/MicroStrategyLibrary2/api/auth/logout'
+curl -X POST --cookie "JSESSIONID=3AD87246016156A33D2501785CEAE3DF" --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'X-MSTR-AuthToken: henc0q0prfdmqu0tmmme3jcigl' 'https://demo.microstrategy.com/MicroStrategyLibrary/api/auth/logout'
 ```
-### Response code:
+
+### Response code
+
 ```
 204
 ```
-### Response header:
+
+### Response header
+
 ```
 {
   "status": "204",

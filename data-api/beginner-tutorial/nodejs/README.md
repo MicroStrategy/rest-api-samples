@@ -21,7 +21,7 @@ require('es6-promise').polyfill()
 require('isomorphic-fetch')
 const contentType = 'application/json'
 const accept = 'application/json'
-const BASE_URL = "https://demo.microstrategy.com/MicroStrategyLibrary2/api"
+const BASE_URL = "https://demo.microstrategy.com/MicroStrategyLibrary/api"
 const objectId = '8CCD8D9D4051A4C533C719A6590DEED8'
 const projectId = 'B7CA92F04B9FAE8D941C3E9B7E0CD754'
 const defaultOffset = 0
@@ -46,7 +46,7 @@ const fetchFullResult = fetchFullResultByUrl(BASE_URL)
 ```
 
 ## 1. Login In
-Authenticate a user with provided **username** and **password** through endpoint [**_POST /auth/login_**](https://demo.microstrategy.com/MicroStrategyLibrary2/api-docs/index.html?#!/Authentication/postLogin) and return an **MicroStrategy auth Token** in the response header.
+Authenticate a user with provided **username** and **password** through endpoint [**_POST /auth/login_**](https://demo.microstrategy.com/MicroStrategyLibrary/api-docs/index.html?#!/Authentication/postLogin) and return an **MicroStrategy auth Token** in the response header.
 
 ### Implement as below:
 ```
@@ -88,11 +88,11 @@ const headerInfo = {
   'X-MSTR-ProjectID': 'B7CA92F04B9FAE8D941C3E9B7E0CD754',
   Cookie:
 [ 'AWSALB=1P125rn12HpmafY5/yzwXneSGCYSZxl4Xw1YsTojO1PPeACHwPrxw0QmJLf55mHdfbcQ11FWDlJhgblHiaZjDm4lr8wRO9xT8fdj8G63vDz8Vx4aazriHXXCe/Y3; Expires=Wed, 05 Dec 2018 02:25:35 GMT; Path=/',
-     'JSESSIONID=695B3254E5CF8D1BAD0384312E84FD07; Path=/MicroStrategyLibrary2; Secure; HttpOnly' ] 
+     'JSESSIONID=695B3254E5CF8D1BAD0384312E84FD07; Path=/MicroStrategyLibrary; Secure; HttpOnly' ] 
 }
 ````
 ### 2. Publish Cube(Optional) 
-Publish a cube with provided **cube Id** in a specific project with **project Id** through endpoint [**_POST /cubes/{cubeId}_**](https://demo.microstrategy.com/MicroStrategyLibrary2/api-docs/index.html?#!/Cubes/publishCube) .
+Publish a cube with provided **cube Id** in a specific project with **project Id** through endpoint [**_POST /cubes/{cubeId}_**](https://demo.microstrategy.com/MicroStrategyLibrary/api-docs/index.html?#!/Cubes/publishCube) .
 ### Implement as below:
 ```
 const buildPublishCubeInfo = function (headers, objectId) {
@@ -112,7 +112,7 @@ const publishCubeResult = await fetchFullResult(buildPublishCubeInfo(headerInfo,
 200
 ```
 ## 3. Retrieving Cube Definition
-Get the definition of a specific cube with provided **cube id** through endpoint [**_GET /cubes/{cubeId}_**](https://demo.microstrategy.com/MicroStrategyLibrary2/api-docs/index.html?#!/Cubes/getDefinition), the cube definition include attributes and metrics in the cube.
+Get the definition of a specific cube with provided **cube id** through endpoint [**_GET /cubes/{cubeId}_**](https://demo.microstrategy.com/MicroStrategyLibrary/api-docs/index.html?#!/Cubes/getDefinition), the cube definition include attributes and metrics in the cube.
 ### Implement as below:
 ```
 const buildGetCubeDefinitionInfo = function (headers, objectId) {
@@ -174,7 +174,7 @@ const getCubeDefinitionResult = await fetchJsonResult(buildGetCubeDefinitionInfo
 ```
 ## 4. Retrieving Cube Raw Data 
 ### 4.1 Limit & offset feature
-Create a new instance of a specific cube with provide **cube id** through endpoint [**_POST /cubes/{cubeId}/instances_**](https://demo.microstrategy.com/MicroStrategyLibrary2/api-docs/index.html?#!/Cubes/createCubeInstance) and return the cube **instance Id** and cube **raw data** in the response body. It can be set **limit** and **offset** query parameter to limit returned cube data.
+Create a new instance of a specific cube with provide **cube id** through endpoint [**_POST /cubes/{cubeId}/instances_**](https://demo.microstrategy.com/MicroStrategyLibrary/api-docs/index.html?#!/Cubes/createCubeInstance) and return the cube **instance Id** and cube **raw data** in the response body. It can be set **limit** and **offset** query parameter to limit returned cube data.
 #### Implement as below:
 ```
 const buildPostCubeDataInfo = function (headers, objectId, requestBody, offset = defaultOffset, limit = defaultLimit) {
@@ -302,7 +302,7 @@ const getCubeDataResult = await fetchJsonResult(buildPostCubeDataInfo(headerInfo
 }
 ```
 ### 4.2 Retrieving cube data with requestObjects
-Create a new instance of a specific cube with provided **cube id** through endpoint  [**_POST /cubes/{cubeId}/instances_**](https://demo.microstrategy.com/MicroStrategyLibrary2/api-docs/index.html?#!/Cubes/createCubeInstance) and return the cube instance Id and cube raw data in the response body. It can be set **requestObjects** json data in the request body to limit returned cube data including specify attributes and metrics. Details see in official document for [RequestedObjects feature](https://lw.microstrategy.com/msdz/MSDL/GARelease_Current/docs/projects/RESTSDK/Content/topics/REST_API/REST_API_Filtering_RptsCubes_requestedObjects.htm).
+Create a new instance of a specific cube with provided **cube id** through endpoint  [**_POST /cubes/{cubeId}/instances_**](https://demo.microstrategy.com/MicroStrategyLibrary/api-docs/index.html?#!/Cubes/createCubeInstance) and return the cube instance Id and cube raw data in the response body. It can be set **requestObjects** json data in the request body to limit returned cube data including specify attributes and metrics. Details see in official document for [RequestedObjects feature](https://lw.microstrategy.com/msdz/MSDL/GARelease_Current/docs/projects/RESTSDK/Content/topics/REST_API/REST_API_Filtering_RptsCubes_requestedObjects.htm).
 
 Based on last step, the request body will be added new part: requestObjects  json data.
 #### Implement as below:
@@ -428,7 +428,7 @@ const getRequestObjectsResult = await fetchJsonResult(buildPostCubeDataInfo(head
 }
 ```
 ### 4.3 Retrieving cube data with sorting
-Create a new instance of a specific cube with provided **cube id** through endpoint  [**_POST /cubes/{cubeId}/instances_**](https://demo.microstrategy.com/MicroStrategyLibrary2/api-docs/index.html?#!/Cubes/createCubeInstance)  and return the cube **instance Id** and cube **raw data** in the response body. It can be set **sorting json data** in the request body to sort cube data. Details see in official document for [Sorting feature](https://lw.microstrategy.com/msdz/MSDL/GARelease_Current/docs/projects/RESTSDK/Content/topics/REST_API/REST_API_Sorting_data.htm).  
+Create a new instance of a specific cube with provided **cube id** through endpoint  [**_POST /cubes/{cubeId}/instances_**](https://demo.microstrategy.com/MicroStrategyLibrary/api-docs/index.html?#!/Cubes/createCubeInstance)  and return the cube **instance Id** and cube **raw data** in the response body. It can be set **sorting json data** in the request body to sort cube data. Details see in official document for [Sorting feature](https://lw.microstrategy.com/msdz/MSDL/GARelease_Current/docs/projects/RESTSDK/Content/topics/REST_API/REST_API_Sorting_data.htm).  
 
 Based on last-step, the request body will be added sorting json data.
 #### Implement as below:
@@ -515,7 +515,7 @@ const getSortingResult = await fetchJsonResult(buildPostCubeDataInfo(headerInfo,
 }
 ```
 ### 4.4 Retrieving cube data with metricLimits
-Create a new instance of a specific cube with provided **cube id** through endpoint  [**_POST /cubes/{cubeId}/instances_**](https://demo.microstrategy.com/MicroStrategyLibrary2/api-docs/index.html?#!/Cubes/createCubeInstance) and return the cube **instance Id** and cube **raw data** in the response body. It can be set **metric limits** json data in the request body to filter cube data based on metric in the template level (grid level). Details see in official document for [Metric limits feature](https://lw.microstrategy.com/msdz/MSDL/GARelease_Current/docs/projects/RESTSDK/Content/topics/REST_API/REST_API_Filtering_RptsCubes_metricLimits.htm).
+Create a new instance of a specific cube with provided **cube id** through endpoint  [**_POST /cubes/{cubeId}/instances_**](https://demo.microstrategy.com/MicroStrategyLibrary/api-docs/index.html?#!/Cubes/createCubeInstance) and return the cube **instance Id** and cube **raw data** in the response body. It can be set **metric limits** json data in the request body to filter cube data based on metric in the template level (grid level). Details see in official document for [Metric limits feature](https://lw.microstrategy.com/msdz/MSDL/GARelease_Current/docs/projects/RESTSDK/Content/topics/REST_API/REST_API_Filtering_RptsCubes_metricLimits.htm).
 
 Based on last-step, the request body will be added new part for metric limits json data.
 #### Implement as below:
@@ -618,7 +618,7 @@ const getMetricLimitsResult = await fetchJsonResult(buildPostCubeDataInfo(header
 }
 ```
 ### 4.5 Retrieving cube data with viewFilter
-Create a new instance of a specific cube with provided **cube id** through endpoint  [**_POST /cubes/{cubeId}/instances_**](https://demo.microstrategy.com/MicroStrategyLibrary2/api-docs/index.html?#!/Cubes/createCubeInstance) and return the cube **instance Id** and cube **raw data** in the response body. It can be set **view filter** json data in the request body to filter cube data based on metric or attribute in the dataset level. Details see in official document for [view filter feature](https://lw.microstrategy.com/msdz/MSDL/GARelease_Current/docs/projects/RESTSDK/Content/topics/REST_API/REST_API_Filtering_RptsCubes_ViewFilter.htm).
+Create a new instance of a specific cube with provided **cube id** through endpoint  [**_POST /cubes/{cubeId}/instances_**](https://demo.microstrategy.com/MicroStrategyLibrary/api-docs/index.html?#!/Cubes/createCubeInstance) and return the cube **instance Id** and cube **raw data** in the response body. It can be set **view filter** json data in the request body to filter cube data based on metric or attribute in the dataset level. Details see in official document for [view filter feature](https://lw.microstrategy.com/msdz/MSDL/GARelease_Current/docs/projects/RESTSDK/Content/topics/REST_API/REST_API_Filtering_RptsCubes_ViewFilter.htm).
 
 Based on last-step, the request body will be added new part for view filters json data.
 #### Implement as below:
@@ -730,7 +730,7 @@ const getViewFilterResult = await fetchJsonResult(buildPostCubeDataInfo(headerIn
 }
 ```
 ## 5. Retrieving cube data with above created instanceId
-Get the results of a previously **created instance id** of a specific cube with provided **cube id** through endpoint  [**_GET /cubes/{cubeId}/instances/{instanceId}_**](https://demo.microstrategy.com/MicroStrategyLibrary2/api-docs/index.html?#!/Cubes/getReport)
+Get the results of a previously **created instance id** of a specific cube with provided **cube id** through endpoint  [**_GET /cubes/{cubeId}/instances/{instanceId}_**](https://demo.microstrategy.com/MicroStrategyLibrary/api-docs/index.html?#!/Cubes/getReport)
 
 Based on created instanceId from last-step response
 ### Implement as below:
@@ -890,7 +890,7 @@ const getCubeInstanceDataResult = await fetchJsonResult(buildGetCubeDataInfo(hea
 }
 ```
 ## 6. Logout 
-Close all existing sessions for the authenticated user through endpoint [**_POST /auth/logout_**](https://demo.microstrategy.com/MicroStrategyLibrary2/api-docs/index.html?#!/Authentication/postLogout) .Logout with the **used authToken**.
+Close all existing sessions for the authenticated user through endpoint [**_POST /auth/logout_**](https://demo.microstrategy.com/MicroStrategyLibrary/api-docs/index.html?#!/Authentication/postLogout) .Logout with the **used authToken**.
 ### Implement as below:
 ```
 const buildLogoutInfo = function () {

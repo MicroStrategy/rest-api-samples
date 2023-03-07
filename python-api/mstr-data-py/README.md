@@ -1,32 +1,39 @@
+# Data API v2 Pandas Guide
+
 ## Table of Contents
+
 - [Data API v2 Pandas Guide](#data-api-v2-pandas-guide)
-  * [JSON Structure](#json-structure)
-    + [Definition](#definition)
+  - [JSON Structure](#json-structure)
+    - [Definition](#definition)
       - [Structure](#structure)
       - [rows](#rows)
       - [columns](#columns)
-    + [Data](#data)
+    - [Data](#data)
       - [Structure](#structure-1)
-  * [Preparing Data for use with Pandas DataFrame](#preparing-data-for-use-with-pandas-dataframe)
-    + [Parse](#parse)
+  - [Preparing Data for use with Pandas DataFrame](#preparing-data-for-use-with-pandas-dataframe)
+    - [Parse](#parse)
       - [Handling Large Datasets](#handling-large-datasets)
       - [parse_rows() & parse_columns()](#parse-rows-----parse-columns--)
       - [map_index()](#map-index--)
-  * [Converting to DataFrame](#converting-to-dataframe)
-  * [Usage](#usage)
-  * [Demo](#demo)
+  - [Converting to DataFrame](#converting-to-dataframe)
+  - [Usage](#usage)
+  - [Demo](#demo)
 
-# Data API v2 Pandas Guide
-This repo aims to demonstrate how to consume version 2 of the Data API for reports and cubes and create a Pandas DataFrame from the JSON object. The main parser is found in mstrdata/utils/dfcreator.py. The wrapper that utilizes the parser is found in mstrdata/microstrategy.py. 
+This repo aims to demonstrate how to consume version 2 of the Data API for reports and cubes and create a Pandas DataFrame from the JSON object. The main parser is found in mstrdata/utils/dfcreator.py. The wrapper that utilizes the parser is found in mstrdata/microstrategy.py.
 
 ## JSON Structure
+
 The v2 JSON response for getting an instance of a cube and report consists of two main components to be used with pandas.
+
 1) Definition
 2) Data
 
 ### Definition
+
 #### Structure
+
 Individual Sales Analysis Report
+
 ```
 "definition": {
         "grid": {
@@ -457,12 +464,14 @@ Individual Sales Analysis Report
     },
 ```
 
-The definition attribute contains the report's definition. For pandas integration we will use the "rows" and "columns" attributes within definition->grid. 
+The definition attribute contains the report's definition. For pandas integration we will use the "rows" and "columns" attributes within definition->grid.
 
 #### rows
-Contains information about the rows that makes up the report. Each row has a name, a list of alternative forms, and elements (along with their alternative forms) that makes up that row. 
+
+Contains information about the rows that makes up the report. Each row has a name, a list of alternative forms, and elements (along with their alternative forms) that makes up that row.
 
 #### columns
+
 Contains information about the columns that makes up the report. Each attribute column has a name, a list of alternative forms, and elements (along with their alternative forms) that makes up that column. The column attribute also has "Metrics" that do not have alternative forms, but still contain elements that makes up that column. Example from Electronics Revenue vs. Forecast report:
 
 ```
@@ -507,6 +516,7 @@ Contains information about the columns that makes up the report. Each attribute 
     ]
 },
 ```
+
 ```
 {
     "name": "Metrics",
@@ -537,7 +547,9 @@ Contains information about the columns that makes up the report. Each attribute 
 ```
 
 ### Data
+
 #### Structure
+
 ```
 "data": {
         "currentPageBy": [],
@@ -972,11 +984,12 @@ Contains information about the columns that makes up the report. Each attribute 
             ],
             ...
 ````
-The data attribute contains information about what is actually being shown on each row and column of the report by mapping its index and values to the definition attribute listed above. 
+
+The data attribute contains information about what is actually being shown on each row and column of the report by mapping its index and values to the definition attribute listed above.
 
 The index of the column of the array in headers->rows maps to the same index in definition->grid->row, and the value at that column in header->rows maps to the index in definition->grid->row->elements
 
-For example: 
+For example:
 
 ```
 "headers": {
@@ -995,30 +1008,30 @@ For example:
                 ],
                 ...
 ```
+
 - [0,0]  
-    - [0, _] 
-        - column index = 0 -> row at index 0 of definition->grid->rows (Region row)
-        - value = 0 -> element at index 0 of Region row (Northeast)
-    - [_, 0] 
-        - column index = 1 -> row at index 1 of definition->grid->rows (Employee row)
-        - value = 0 -> element at index 0 of Employee row (Sawyer, Kelly)
+  - [0, _]
+    - column index = 0 -> row at index 0 of definition->grid->rows (Region row)
+    - value = 0 -> element at index 0 of Region row (Northeast)
+  - [_, 0]
+    - column index = 1 -> row at index 1 of definition->grid->rows (Employee row)
+    - value = 0 -> element at index 0 of Employee row (Sawyer, Kelly)
 
-
-- [0,1] 
-    - [0, _] 
-        - column index = 0 -> row at index 0 of definition->grid->rows (Region row)
-        - value = 0 -> element at index 0 of Region row (Northeast)
-    - [_, 1] 
-        - column index = 1 -> row at index 1 of definition->grid->rows (Employee row)
-        - value = 1 -> element at index 0 of Employee row (Kelly, Laura)
+- [0,1]
+  - [0, _]
+    - column index = 0 -> row at index 0 of definition->grid->rows (Region row)
+    - value = 0 -> element at index 0 of Region row (Northeast)
+  - [_, 1]
+    - column index = 1 -> row at index 1 of definition->grid->rows (Employee row)
+    - value = 1 -> element at index 0 of Employee row (Kelly, Laura)
 - ...
 
 The same can be applied to the columns attribute in data->header->columns, except transposed; the row index correlates to the index of the column in definition->grid->column and the value correlates to the index of the element in that column in definition->grid->column->elements.
 
 The metricValues attribute in data->metricValues contains the raw and formatted data from the report. There is no mapping here.
 
-
 ## Preparing Data for use with Pandas DataFrame
+
 The Pandas DataFrame package allows us to easily produce a table matching the report once we have parsed the incoming JSON data from the v2 REST endpoint. The conversion from the report JSON response to a Pandas DataFrame looks something like this:
 
 - data->header->rows --> Pandas' index (MultiIndex Row)
@@ -1027,19 +1040,23 @@ The Pandas DataFrame package allows us to easily produce a table matching the re
 
 ![Image of General Pandas Layout](images/general_pandas.png)
 
-We can create a DataFrame using only these 3 attributes by calling `pd.DataFrame(index=data->header->rows, columns=data->header->columns, data=data->metricValues->raw)` after mapping those data values to their definitions. 
+We can create a DataFrame using only these 3 attributes by calling `pd.DataFrame(index=data->header->rows, columns=data->header->columns, data=data->metricValues->raw)` after mapping those data values to their definitions.
 
 ### Parse
-The parse function parses the incoming JSON object and formats it into Pandas ready objects that can easily be consumed. We parse each component separately. 
+
+The parse function parses the incoming JSON object and formats it into Pandas ready objects that can easily be consumed. We parse each component separately.
+
 ```
 self._row_elements = self.parse_rows(json)
 self._column_elements = self.parse_columns(json)
 self._metric_elements = self.parse_metrics(json)
 ```
+
 We parse the metric elements separately to account for its lack of alternate formValues; we just grab its element values without considering alternate formValues. However, the functionality of `parse_rows()` and `parse_columns()` requires us to recognize alternate formValues. The functionality is described in detail below. Additionally, we later join self._metric_elements  with self._column_elements since it also makes up the columns of the report:
 `self._column_elements.append(self._metric_elements)`
 
 After parsing the row and column elements, we use the data mapping in data->header->rows and data->header->columns to retrieve the actual values that will be placed in each row/column on the DataFrame. The functionality of `map_index()` is also described further below.
+
 ```
 # data->headers->rows
 row_index_map = json['data']['headers']['rows']
@@ -1049,9 +1066,10 @@ column_index_map = json['data']['headers']['columns']
 header_data_rows = self.map_index(self._row_elements, row_index_map) 
 header_data_columns = self.map_index(self._column_elements, (np.array(column_index_map).T).tolist())
 ```
+
 *Note that we Transpose the shape of the column elements*
 
-Now we prepare our data to be used with: 
+Now we prepare our data to be used with:
 
 `pd.DataFrame(index=data->header->rows, columns=data->header->columns, data=data->metricValues->raw)`
 
@@ -1068,8 +1086,11 @@ self._col_names = list(map(lambda x: x['name'], self._column_elements))
 self._raw_data = [(json['data']['metricValues']['raw'])]
 self._formatted_data = [(json['data']['metricValues']['formatted'])]
 ```
+
 #### Handling Large Datasets
-v2 reports and cubes request defaults to a limit of 1000 response rows. If the dataset is too large, we paginate the results and append new rows to our parser data structure before creating the Pandas DataFrame. 
+
+v2 reports and cubes request defaults to a limit of 1000 response rows. If the dataset is too large, we paginate the results and append new rows to our parser data structure before creating the Pandas DataFrame.
+
 ```
 # append new row and metric data
 self._mi_rows.append(mi_row)
@@ -1079,9 +1100,11 @@ self._formatted_data += [(json['data']['metricValues']['formatted'])]
 ```
 
 #### parse_rows() & parse_columns()
+
 `parse_rows()` and `parse_columns()` takes the definition->grid->rows and definition->grid->columns and extracts the relevant information into a list of dictionary objects. We also check for alternate attribute forms and separate them from the original JSON response as a separate row/column. For example; in the Individual Sales Analysis report, we have an Employee attribute with 2 alternate forms, a first name, and a last name. We separate those two forms and end up with something like this.
 
 self._row_elements:
+
 ```
 [
     {
@@ -1101,7 +1124,9 @@ self._row_elements:
     }
 ]
 ```
+
 self._column_elements:
+
 ```
 [
     {
@@ -1111,13 +1136,16 @@ self._column_elements:
     }
 ]
 ```
-- *name* describes the row/column title. 
-- *elements* describes the elements that are part of that row/column. 
-- *index* describes its index position in definition->grid->row/column. 
-    - We use *index* to determine the mapping from data->headers->rows/columns.
+
+- *name* describes the row/column title.
+- *elements* describes the elements that are part of that row/column.
+- *index* describes its index position in definition->grid->row/column.
+  - We use *index* to determine the mapping from data->headers->rows/columns.
 
 #### map_index()
-`map_index(self, row_elements, index_map)` does most of the heavy lifting. It uses the dictionary objects from `parse_rows()` and `parse_columns()` along with the data mapping in data->header->rows/columns to create the values to be displayed on the DataFrame. It first expands the data mapping in data->headers->rows/columns to account for the extra row/column that will exist in our DataFrame because of potential alternate attribute forms (IE with Employee@LastName & Employee@FirstName). We insert that new column at the index specified in our dictionary object's *index* attribute. 
+
+`map_index(self, row_elements, index_map)` does most of the heavy lifting. It uses the dictionary objects from `parse_rows()` and `parse_columns()` along with the data mapping in data->header->rows/columns to create the values to be displayed on the DataFrame. It first expands the data mapping in data->headers->rows/columns to account for the extra row/column that will exist in our DataFrame because of potential alternate attribute forms (IE with Employee@LastName & Employee@FirstName). We insert that new column at the index specified in our dictionary object's *index* attribute.
+
 ```
 for row_element in row_elements:
     if row_element['index'] in visited_set: 
@@ -1128,7 +1156,9 @@ for row_element in row_elements:
     
     visited_set.append(row_element['index'])
 ```
+
 So From:
+
 ```
 [[
     0,
@@ -1143,7 +1173,9 @@ So From:
     2
 ],...]
 ```
+
 To:
+
 ```
 [[
     0,
@@ -1161,7 +1193,9 @@ To:
     2
 ],...]
 ```
-Then we map the indices in index_map_copy to their element values in row_elements: 
+
+Then we map the indices in index_map_copy to their element values in row_elements:
+
 ```
 idx = 0
 index_map_copy = index_map_copy.tolist()
@@ -1173,16 +1207,18 @@ for row_idx in index_map_copy:
 return index_map_copy
 ```
 
-**Remember that row_elements is our dictionary object, with its elements attribute having the same index structure as definition->grid->rows/columns->elements. By inserting an additional column to the data->headers->rows/columns we break the intended mapping to definition->grid->rows/columns. Instead, we now use the index of `self._row_elements`(row_elements) and `self._column_elements`(column_elements) which have the additional rows to match the additional columns that we appended to the index map.** 
+**Remember that row_elements is our dictionary object, with its elements attribute having the same index structure as definition->grid->rows/columns->elements. By inserting an additional column to the data->headers->rows/columns we break the intended mapping to definition->grid->rows/columns. Instead, we now use the index of `self._row_elements`(row_elements) and `self._column_elements`(column_elements) which have the additional rows to match the additional columns that we appended to the index map.**
 
 ![Expanded column data mapping](images/expanded_mapping_pandas.png)
 
-In the end we return this for our rows: 
+In the end we return this for our rows:
+
 ```
 [['Northeast', 'Sawyer', 'Leanne'], ['Northeast', 'Kelly', 'Laura'], ['Northeast', 'Yager', 'Beth'],...]
 ```
 
 This for our columns:
+
 ```
 [['Sales'], ['Rank by Region']]
 ```
@@ -1196,10 +1232,10 @@ for raw, row in zip(self._raw_data, self._mi_rows):
     res.append(df)     
 ```
 
-To get the Pandas DataFrame to work with cross grid, we need to utilize Pandas MultiIndex indexing using pd.MultiIndex(). To account for large datasets, we create separate DataFrames for each batch of information that we get. Once everything is done, we can append the individual DataFrames together like so: `pd.concat(res)`. 
-
+To get the Pandas DataFrame to work with cross grid, we need to utilize Pandas MultiIndex indexing using pd.MultiIndex(). To account for large datasets, we create separate DataFrames for each batch of information that we get. Once everything is done, we can append the individual DataFrames together like so: `pd.concat(res)`.
 
 ## Usage
+
 ```
 json_response = response.json()
 instance_id = json_response['instanceId']
@@ -1226,18 +1262,18 @@ if pagination['current'] != pagination['total']:
 
 return dfc._to_dataframe(raw=raw)
 ```
+
 *json_response* is the result of calling POST api/v2/reports/instances or api/v2/cubes and *response* is the result of calling GET api/v2/reports/instances/:instance_id. Additionally, you can specify raw to be True or False to get either raw data (raw=True) or formatted data (raw=False).
 
 ## Demo
+
 To run the demo, create a virtual environment:
 
 `python3 -m venv test-env`
 
-
 Activate the environment
 
 `source test-env/bin/activate`
-
 
 Install packages
 
@@ -1247,16 +1283,6 @@ Run the notebook
 
 `jupyter notebook`
 
-Navigate to test/example.ipynb in jupyter and you'll find examples of how the parser is utilized. We have built the parser to work with [mstrio-py](https://github.com/MicroStrategy/mstrio-py) and its implementation for local python usage of MicroStrategy's report and cube objects. 
-
+Navigate to test/example.ipynb in jupyter and you'll find examples of how the parser is utilized. We have built the parser to work with [mstrio-py](https://github.com/MicroStrategy/mstrio-py) and its implementation for local python usage of MicroStrategy's report and cube objects.
 
 You can also view the demo notebook [here on github](/python-api/mstr-data-py/test)
-
-
-
-
-
-
-
-
-
