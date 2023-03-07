@@ -268,7 +268,7 @@ public class Tutorial {
 {Cache-Control=[no-cache, no-store, max-age=0, must-revalidate], Server=[MicroStrategy], 
 Connection=[keep-alive], 
 
-Set-Cookie=[JSESSIONID=FBBD865E62C86A9CCA4A88D8F1966F81; Path=/MicroStrategyLibrary2;  Secure; HttpOnly, AWSALB=OmDwAIpAmUvks6wD/4Xyqxbql6QnL89Q7IGB4g3x06IH1E6QG+igTEG/PkMp0AAMF2xuKr05hmPmwP6xm5aT0pscRcJ4lYJp1a4IEiBfDKJkI/N5hhX4mfLWAey7; Expires=Thu, 06 Dec 2018 06:51:19 GMT; Path=/], 
+Set-Cookie=[JSESSIONID=FBBD865E62C86A9CCA4A88D8F1966F81; Path=/MicroStrategyLibrary;  Secure; HttpOnly, AWSALB=OmDwAIpAmUvks6wD/4Xyqxbql6QnL89Q7IGB4g3x06IH1E6QG+igTEG/PkMp0AAMF2xuKr05hmPmwP6xm5aT0pscRcJ4lYJp1a4IEiBfDKJkI/N5hhX4mfLWAey7; Expires=Thu, 06 Dec 2018 06:51:19 GMT; Path=/], 
 
 Pragma=[no-cache], 
 Expires=[0], Date=[Thu, 29 Nov 2018 06:51:19 GMT], 

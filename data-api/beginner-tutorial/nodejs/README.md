@@ -88,7 +88,7 @@ const headerInfo = {
   'X-MSTR-ProjectID': 'B7CA92F04B9FAE8D941C3E9B7E0CD754',
   Cookie:
 [ 'AWSALB=1P125rn12HpmafY5/yzwXneSGCYSZxl4Xw1YsTojO1PPeACHwPrxw0QmJLf55mHdfbcQ11FWDlJhgblHiaZjDm4lr8wRO9xT8fdj8G63vDz8Vx4aazriHXXCe/Y3; Expires=Wed, 05 Dec 2018 02:25:35 GMT; Path=/',
-     'JSESSIONID=695B3254E5CF8D1BAD0384312E84FD07; Path=/MicroStrategyLibrary2; Secure; HttpOnly' ] 
+     'JSESSIONID=695B3254E5CF8D1BAD0384312E84FD07; Path=/MicroStrategyLibrary; Secure; HttpOnly' ] 
 }
 ````
 ### 2. Publish Cube(Optional) 

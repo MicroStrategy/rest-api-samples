@@ -1,11 +1,10 @@
-## Fetch data from MicroStrategy API and export into excelsheet
+# Fetch data from MicroStrategy API and export into excel sheet
 
 This client code outlines the API workflow for the how to fetch report data from MicroStrategy Data API and how to export into excel sheet.
 
-This client code demonstation apply on non cross-tab, cross-tab and multi-form templates report.
+This client code demonstration apply on non cross-tab, cross-tab and multi-form templates report.
 
-
-### Workflows for retriving data
+## Workflows for retrieving data
 
 1. Login
 
@@ -25,9 +24,9 @@ This client code demonstation apply on non cross-tab, cross-tab and multi-form t
         POST /v2/reports/{id}/instances
         ```
 
-        This API creates an instance of a report, the instance ID and results are returned. The instance ID can be used in subsequent GET requests to page through the results in desired chunk size. This API has parameters which can be specified which alter the ouput of the response, they include; pagination, metric limit, view filter, requested objects, and sorting. All of these request parameters are optional.
+        This API creates an instance of a report, the instance ID and results are returned. The instance ID can be used in subsequent GET requests to page through the results in desired chunk size. This API has parameters which can be specified which alter the output of the response, they include; pagination, metric limit, view filter, requested objects, and sorting. All of these request parameters are optional.
 
-        #### Query parameters
+### Query parameters
 
         * **offset:** is the start point of your response. For example, if offset=2, it will return the report data beginning with the second record. The default value is 0.
 
@@ -35,7 +34,7 @@ This client code demonstation apply on non cross-tab, cross-tab and multi-form t
 
         URL:
 
-        ```http
+        ```
         https://demo.microstrategy.com/MicroStrategyLibrary/api/v2/reports/9A080A2411D63D9FC0009CAD9AD9374F/instances
         ```
 
@@ -62,7 +61,7 @@ This client code demonstation apply on non cross-tab, cross-tab and multi-form t
 
         URL:
 
-        ```http
+        ```
         https://demo.microstrategy.com/MicroStrategyLibrary/api/v2/reports/9A080A2411D63D9FC0009CAD9AD9374F/instances/49F2AEFA11EA11270CD20080EFA59B90?offset=0&limit=1000
         ```
 
@@ -73,53 +72,37 @@ This client code demonstation apply on non cross-tab, cross-tab and multi-form t
 
         Response Code: 200
 
-
 ## Non-Cross tab report
 
-### Report Layout:
+### Report Layout
 
+![alt text](ScreenShot/Report.png)
 
+### Exported into Excel sheet
 
-![alt text](https://github.com/MicroStrategy/rest-api-samples/blob/parseV2Report/data-api-v2/ScreenShot/Report.png)
-
-
-
-
-### Exported into Excelsheet:
-
-![alt text](https://github.com/MicroStrategy/rest-api-samples/blob/parseV2Report/data-api-v2/ScreenShot/Excelsheet.png)
-
+![alt text](ScreenShot/Excelsheet.png)
 
 ## Cross tab report
 
-### Report Layout:
+### Report Layout
 
-![alt text](https://github.com/MicroStrategy/rest-api-samples/blob/parseV2Report/data-api-v2/ScreenShot/CrosstabReport.png)
+![alt text](ScreenShot/CrosstabReport.png)
 
-### Exported into Excelsheet:
+### Exported into Excel sheet
 
-![alt text](https://github.com/MicroStrategy/rest-api-samples/blob/parseV2Report/data-api-v2/ScreenShot/CrosstabExcel.png)
-
+![alt text](ScreenShot/CrosstabExcel.png)
 
 ## Multi-form template Report
 
-### Report Layout:
+### Report Layout
 
-![alt text](https://github.com/MicroStrategy/rest-api-samples/blob/parseV2Report/data-api-v2/ScreenShot/MultiformReport.png)
+![alt text](ScreenShot/MultiformReport.png)
 
-### Exported into Excelsheet:
+### Exported into Excel sheet
 
-![alt text](https://github.com/MicroStrategy/rest-api-samples/blob/parseV2Report/data-api-v2/ScreenShot/MultiformExcel.png)
-
-
+![alt text](ScreenShot/MultiformExcel.png)
 
 ### Config.properties
 
 Please make necessary changes in Config.properties such as Base url, user name, password, report Id.
-If in your development enviornment have this file already, then put all these setting parameter in configuration file, and make necessary changes.
-
-
-
-
-
-
+If in your development environment have this file already, then put all these setting parameter in configuration file, and make necessary changes.
