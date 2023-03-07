@@ -16,7 +16,7 @@ We will use the sample cube **“Intelligent Cube - Drilling outside the cube is
 * **Cube ID**: 8CCD8D9D4051A4C533C719A6590DEED8  
 * **Project ID**: "B7CA92F04B9FAE8D941C3E9B7E0CD754",  
 * **Project Name**: "MicroStrategy Tutorial",  
-* **Demo REST Server swagger UI**:  [**https://demo.microstrategy.com/MicroStrategyLibrary2/api-docs/index.html?**](https://demo.microstrategy.com/MicroStrategyLibrary2/api-docs/index.html) 
+* **Demo REST Server swagger UI**:  [**https://demo.microstrategy.com/MicroStrategyLibrary/api-docs/index.html?**](https://demo.microstrategy.com/MicroStrategyLibrary/api-docs/index.html) 
 
 ## Different code implementation(Getting Started)   
 ### [Curl implementation](curl/README.md)   
