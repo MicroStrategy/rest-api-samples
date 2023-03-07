@@ -1,6 +1,6 @@
 # MicroStrategy REST API Samples
 
-This repository contains some sample code for using MicroStrategy REST API. This project is deprecated. The sample code in this repository might not work due to environment and dependency changes.
+This repository contains some sample code for using MicroStrategy REST API. This project is deprecated. The sample code in this repository might not be up-to-date with our latest REST API.
 
 Here is some resource for you to learn MicroStrategy's REST API.
 
