@@ -1,4 +1,4 @@
-# Fetch data from MicroStrategy API and export into excel sheet
+# Fetch data from MicroStrategy API and export into Excel sheet
 
 This client code outlines the API workflow for the how to fetch report data from MicroStrategy Data API and how to export into excel sheet.
 
