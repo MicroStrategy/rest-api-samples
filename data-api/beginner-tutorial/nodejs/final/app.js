@@ -20,7 +20,7 @@ const buildLoginInfo = function () {
     url: "/auth/login",
     requestInfo: {
       method: "POST",
-      headers: { "Content-Type": CONTENT_TYPE, Accept: ACCEPT },
+      headers: { "Content-Type": CONTENT_TYPE, Accept: ACCEPT},
       body: JSON.stringify(USER_INFO),
     },
   };
@@ -31,7 +31,7 @@ const buildPublishCubeInfo = function (headers, objectId) {
     url: `/cubes/${objectId}`,
     requestInfo: {
       method: "POST",
-      headers,
+      headers
     },
   };
 };
@@ -40,7 +40,7 @@ const buildGetCubeDefinitionInfo = function (headers, objectId) {
   return {
     url: `/cubes/${objectId}`,
     requestInfo: {
-      headers: headers,
+      headers: headers
     },
   };
 };
@@ -72,18 +72,17 @@ const buildGetCubeDataInfo = function (
   return {
     url: `/cubes/${objectId}/instances/${instanceId}?offset=${offset}&limit=${limit}`,
     requestInfo: {
-      headers,
-      body: "{}",
+      headers
     },
   };
 };
 
-const buildLogoutInfo = function () {
+const buildLogoutInfo = function (headers) {
   return {
     url: `/auth/logout`,
     requestInfo: {
       method: "POST",
-      headers: { "Content-Type": CONTENT_TYPE, Accept: ACCEPT },
+      headers
     },
   };
 };
@@ -113,9 +112,9 @@ const callREST = async function () {
   const headerInfo = {
     "Content-Type": CONTENT_TYPE,
     Accept: ACCEPT,
-    "X-MSTR-AuthToken": loginResult.headers.get("x-mstr-authtoken"),
+    "X-MSTR-AuthToken": loginResult.headers.get('x-mstr-authtoken'),
     "X-MSTR-ProjectID": PROJECT_ID,
-    Cookie: loginResult.headers._headers["set-cookie"],
+    Cookie: loginResult.headers.get('set-cookie')
   };
   const loginText = "log in result:" + "\n" + loginResult.status;
   console.log(loginText);
@@ -218,7 +217,7 @@ const callREST = async function () {
   console.log(cubeInstanceText);
   fileContent.push(cubeInstanceText);
 
-  const logoutResult = await fetchFullResult(buildLogoutInfo());
+  const logoutResult = await fetchFullResult(buildLogoutInfo(headerInfo));
   const logoutText = "log out result:" + "\n" + logoutResult.status;
   console.log(logoutText);
   fileContent.push(logoutText);
