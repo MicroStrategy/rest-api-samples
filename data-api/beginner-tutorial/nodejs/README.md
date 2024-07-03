@@ -17,7 +17,7 @@ Please refer to [setting node development environment in MDN web docs](https://d
    
 ## Common Information:
 ```
-require('es6-promise').polyfill()
+require('es6-promise/auto')
 require('isomorphic-fetch')
 const contentType = 'application/json'
 const accept = 'application/json'
