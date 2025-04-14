@@ -14,6 +14,9 @@ This Chrome extension demonstrates how to implement Strategy Library OAuth2 auth
   - Clean and intuitive design
   - Token display functionality
   - Status message feedback
+- API Testing
+  - Ability to test API calls using the access token
+  - Fetch user information from the API
 - Security Features
   - PKCE implementation for enhanced security
   - Secure token storage using Chrome's storage API
@@ -28,7 +31,7 @@ This Chrome extension demonstrates how to implement Strategy Library OAuth2 auth
   - The library is running
   - OAuth2 has been enabled and is properly configured
   - Trust Relationship has been enabled between Web Server and Intelligence Server
-- Extension require cross-domain access
+- Extension requires cross-domain access
   - The Extension URL has been added to the Library Security Setting:
     - <img src="./images/ExtensionCORS.png" alt="Extension CORS" width="300" height="100">
   - Note your extension ID from Chrome's extension management page
@@ -47,7 +50,8 @@ const config = {
   redirectUri: chrome.identity.getRedirectURL(),
   authEndpoint: 'http://hostname:8080/MicroStrategyLibrary/oauth2/authorize', // Your OAuth2 authorization endpoint
   tokenEndpoint: 'http://hostname:8080/MicroStrategyLibrary/oauth2/token',    // Your OAuth2 token endpoint
-  scope: 'offline_access'
+  scope: 'offline_access',
+  testApiUrl: 'http://hostname:8080/MicroStrategyLibrary/api/sessions/userInfo' // Your Test API endpoint
 };
 ```
 
@@ -77,7 +81,7 @@ This extension implements PKCE (Proof Key for Code Exchange) for enhanced securi
 ## Setup Instructions
 
 1. **Configure OAuth2 Provider**
-  - Configure a new Client in Library OAuth2 Configuration and records these values
+  - Configure a new Client in Library OAuth2 Configuration and record these values
     - Authorization Endpoint
     - Token Endpoint
     - Client ID
@@ -102,22 +106,29 @@ This extension implements PKCE (Proof Key for Code Exchange) for enhanced securi
    - Authentication Status
      - A "Logout" button
      - A "Refresh Access Token" button
+     - A "Test API" button to fetch user information
      - Status messages for all operations
 5. Click "Refresh Access Token" to:
    - Get a new access token
    - View the current token in the popup
-6. Use the "Logout" button to end your session
+6. Click "Test API" to:
+   - Fetch user information from the API using the access token
+   - Display the result in the popup
+7. Use the "Logout" button to end your session
 
 ## UI Screenshots
 
 ### Login Screen
-<img src="./images/login-screen.png" alt="Extension Login Screen" width="300" height="160">
+<img src="./images/ui-sh-login-screen.png" alt="Extension Login Screen" width="300" height="160">
 
 ### Authenticated View
-<img src="./images/authenticated-view.png" alt="Extension Authenticated View" width="300" height="180">
+<img src="./images/ui-sh-authenticated-view.png" alt="Extension Authenticated View" width="300" height="240">
 
 ### Token Display
-<img src="./images/token-display.png" alt="Token Display View" width="300" height="280">
+<img src="./images/ui-sh-token-display.png" alt="Token Display View" width="300" height="280">
+
+### Test API View
+<img src="./images/ui-sh-test-api-view.png" alt="Extension Authenticated View" width="300" height="300">
 
 ## Security Considerations
 

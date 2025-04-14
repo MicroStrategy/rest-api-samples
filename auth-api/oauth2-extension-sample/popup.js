@@ -5,7 +5,8 @@ const config = {
   redirectUri: chrome.identity.getRedirectURL(),
   authEndpoint: 'http://hostname:8080/MicroStrategyLibrary/oauth2/authorize', // Replace with your OAuth2 authorization endpoint
   tokenEndpoint: 'http://hostname:8080/MicroStrategyLibrary/oauth2/token', // Replace with your OAuth2 token endpoint
-  scope: 'offline_access'
+  scope: 'offline_access',
+  testApiUrl: 'http://hostname:8080/MicroStrategyLibrary/api/sessions/userInfo' // Replace with your API endpoint
 };
 
 // PKCE Utility Functions
@@ -31,6 +32,7 @@ const logoutBtn = document.getElementById('logoutBtn');
 const getTokenBtn = document.getElementById('getTokenBtn');
 const tokenDisplay = document.getElementById('tokenDisplay');
 const statusDiv = document.getElementById('status');
+const testApiBtn = document.getElementById('testApiBtn');
 
 // Check authentication status when popup opens
 document.addEventListener('DOMContentLoaded', async () => {
@@ -175,11 +177,47 @@ getTokenBtn.addEventListener('click', async () => {
   }
 });
 
+// Handle test API button click
+testApiBtn.addEventListener('click', async () => {
+  try {
+    // Get the access token from storage
+    const { accessToken } = await chrome.storage.local.get('accessToken');
+
+    if (!accessToken) {
+      showStatus('No access token available. Please log in first.', 'error');
+      return;
+    }
+
+    // Make the API call to get user info
+    const response = await fetch(config.testApiUrl, {
+      method: 'GET',
+      headers: {
+        'x-mstr-authtoken': `${accessToken}`
+      }
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error_description || errorData.error || 'API call failed');
+    }
+
+    const userInfo = await response.json();
+    // Display the user info
+    tokenDisplay.textContent = JSON.stringify(userInfo, null, 2);
+    tokenDisplay.style.display = 'block';
+    showStatus('User info retrieved successfully!', 'success');
+  } catch (error) {
+    console.error('API call error:', error);
+    showStatus('API call failed: ' + error.message, 'error');
+  }
+});
+
 // Helper function to update UI based on authentication status
 function updateUI(isAuthenticated) {
   loginBtn.style.display = isAuthenticated ? 'none' : 'block';
   logoutBtn.style.display = isAuthenticated ? 'block' : 'none';
   getTokenBtn.style.display = isAuthenticated ? 'block' : 'none';
+  testApiBtn.style.display = isAuthenticated ? 'block' : 'none';
   tokenDisplay.style.display = 'none';
 }
 
