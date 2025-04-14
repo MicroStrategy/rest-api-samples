@@ -8,7 +8,6 @@ This repository contains sample code for using MicroStrategy REST API, including
 
 ### Authentication and Security
 - **OAuth2 Extension Sample** (Latest) - Demonstrates how to implement OAuth2 authentication with MicroStrategy REST API
-- **Authentication API** - Basic authentication workflows and token management
 
 ### Data Integration
 - **Data API** - Examples of data integration and manipulation
