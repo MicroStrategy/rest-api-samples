@@ -3,10 +3,10 @@ const config = {
   clientId: 'YOUR_CLIENT_ID', // Replace with your OAuth2 client ID
   clientSecret: 'YOUR_CLIENT_SECRET', // Replace with your OAuth2 client secret
   redirectUri: chrome.identity.getRedirectURL(),
-  authEndpoint: 'http://hostname:8080/MicroStrategyLibrary/oauth2/authorize', // Replace with your OAuth2 authorization endpoint
-  tokenEndpoint: 'http://hostname:8080/MicroStrategyLibrary/oauth2/token', // Replace with your OAuth2 token endpoint
+  authEndpoint: 'https://hostname:8080/MicroStrategyLibrary/oauth2/authorize', // Replace with your OAuth2 authorization endpoint
+  tokenEndpoint: 'https://hostname:8080/MicroStrategyLibrary/oauth2/token', // Replace with your OAuth2 token endpoint
   scope: 'offline_access',
-  testApiUrl: 'http://hostname:8080/MicroStrategyLibrary/api/sessions/userInfo' // Replace with your API endpoint
+  testApiUrl: 'https://hostname:8080/MicroStrategyLibrary/api/sessions/userInfo' // Replace with your API endpoint
 };
 
 // PKCE Utility Functions

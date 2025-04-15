@@ -1,6 +1,6 @@
 # OAuth2 Extension Sample
 
-![Extension Icon](images/icon128.png "OAuth2 Extension Icon")
+<img src="./images/icon.png" alt="OAuth2 Extension Icon" width="100" height="100">
 
 This Chrome extension demonstrates how to implement Strategy Library OAuth2 authentication in a Chrome extension. It provides a simple interface for users to authenticate with the Strategy Library and manage their authentication state.
 
@@ -48,10 +48,10 @@ const config = {
   clientId: 'YOUR_CLIENT_ID',           // Your OAuth2 client ID
   clientSecret: 'YOUR_CLIENT_SECRET',   // Your OAuth2 client secret
   redirectUri: chrome.identity.getRedirectURL(),
-  authEndpoint: 'http://hostname:8080/MicroStrategyLibrary/oauth2/authorize', // Your OAuth2 authorization endpoint
-  tokenEndpoint: 'http://hostname:8080/MicroStrategyLibrary/oauth2/token',    // Your OAuth2 token endpoint
+  authEndpoint: 'https://hostname:8080/MicroStrategyLibrary/oauth2/authorize', // Your OAuth2 authorization endpoint
+  tokenEndpoint: 'https://hostname:8080/MicroStrategyLibrary/oauth2/token',    // Your OAuth2 token endpoint
   scope: 'offline_access',
-  testApiUrl: 'http://hostname:8080/MicroStrategyLibrary/api/sessions/userInfo' // Your Test API endpoint
+  testApiUrl: 'https://hostname:8080/MicroStrategyLibrary/api/sessions/userInfo' // Your Test API endpoint
 };
 ```
 
@@ -95,7 +95,7 @@ This extension implements PKCE (Proof Key for Code Exchange) for enhanced securi
 2. **Load the Extension**
    - Open Chrome and go to `chrome://extensions/`
    - Enable "Developer mode" in the top right
-   - Click "Load unpacked" and select the extension directory
+   - Click "Load unpacked" and select the extension directory of "oauth2-extension-sample"
 
 ## Usage
 
@@ -129,25 +129,6 @@ This extension implements PKCE (Proof Key for Code Exchange) for enhanced securi
 
 ### Test API View
 <img src="./images/ui-sh-test-api-view.png" alt="Extension Authenticated View" width="300" height="300">
-
-## Security Considerations
-
-- **PKCE Implementation**
-  - Secure code verifier generation
-  - SHA-256 code challenge
-  - Proper challenge/verifier flow
-  - Secure storage of verifier
-
-- **Token Management**
-  - Secure storage using Chrome's storage API
-  - Automatic token refresh
-  - Manual refresh capability
-  - Proper error handling
-
-- **Data Protection**
-  - Sensitive data is never exposed in the UI
-  - All network requests are made over HTTPS
-  - Secure token handling and storage
 
 ## Code Structure
 

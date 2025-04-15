@@ -2,7 +2,7 @@
 const config = {
   clientId: 'YOUR_CLIENT_ID', // Replace with your OAuth2 client ID
   clientSecret: 'YOUR_CLIENT_SECRET', // Replace with your OAuth2 client secret
-  tokenEndpoint: 'http://hostname:8080/MicroStrategyLibrary/oauth2/token' // Replace with your OAuth2 token endpoint
+  tokenEndpoint: 'https://hostname:8080/MicroStrategyLibrary/oauth2/token' // Replace with your OAuth2 token endpoint
 };
 
 // Listen for installation
