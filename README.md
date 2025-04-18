@@ -1,13 +1,13 @@
-# MicroStrategy REST API Samples
+# Strategy REST API Samples
 
-This repository contains sample code for using MicroStrategy REST API, including various implementations and examples across different programming languages and use cases.
+This repository contains sample code for using Strategy REST API, including various implementations and examples across different programming languages and use cases.
 
 > Note: Some samples in this repository might not be up-to-date with our latest REST API.
 
 ## Sample Projects
 
 ### Authentication and Security
-- **OAuth2 Extension Sample** (Latest) - Demonstrates how to implement OAuth2 authentication with MicroStrategy REST API
+- **OAuth2 Extension Sample** (Latest) - Demonstrates how to implement OAuth2 authentication with Strategy REST API
 
 ### Data Integration
 - **Data API** - Examples of data integration and manipulation
@@ -19,11 +19,11 @@ This repository contains sample code for using MicroStrategy REST API, including
 
 ## Additional Resources
 
-Here are resources to help you learn MicroStrategy's REST API:
+Here are resources to help you learn Strategy's REST API:
 
 - [REST API Documentation](https://microstrategy.github.io/rest-api-docs/) - Complete REST API reference and guides
 - [REST API Playground](https://github.com/MicroStrategy/rest-api-playground) - Interactive workflow examples and sample code
-- [mstrio-py](https://github.com/MicroStrategy/mstrio-py) - Official Python SDK for MicroStrategy REST API
+- [mstrio-py](https://github.com/MicroStrategy/mstrio-py) - Official Python SDK for Strategy REST API
 - For other programming languages, you can use the sample code generated on [REST API Playground](https://github.com/MicroStrategy/rest-api-playground)
 
 ## Getting Started
