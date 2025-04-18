@@ -48,10 +48,10 @@ const config = {
   clientId: 'YOUR_CLIENT_ID',           // Your OAuth2 client ID
   clientSecret: 'YOUR_CLIENT_SECRET',   // Your OAuth2 client secret
   redirectUri: chrome.identity.getRedirectURL(),
-  authEndpoint: 'https://hostname:8080/MicroStrategyLibrary/oauth2/authorize', // Your OAuth2 authorization endpoint
-  tokenEndpoint: 'https://hostname:8080/MicroStrategyLibrary/oauth2/token',    // Your OAuth2 token endpoint
+  authEndpoint: 'https://hostname/MicroStrategyLibrary/oauth2/authorize', // Your OAuth2 authorization endpoint
+  tokenEndpoint: 'https://hostname/MicroStrategyLibrary/oauth2/token',    // Your OAuth2 token endpoint
   scope: 'offline_access',
-  testApiUrl: 'https://hostname:8080/MicroStrategyLibrary/api/sessions/userInfo' // Your Test API endpoint
+  testApiUrl: 'https://hostname/MicroStrategyLibrary/api/sessions/userInfo' // Your Test API endpoint
 };
 ```
 
@@ -110,10 +110,10 @@ This extension implements PKCE (Proof Key for Code Exchange) for enhanced securi
      - Status messages for all operations
 5. Click "Refresh Access Token" to:
    - Get a new access token
-   - View the current token in the popup
+   - View the current token in the screen
 6. Click "Test API" to:
    - Fetch user information from the API using the access token
-   - Display the result in the popup
+   - Display the result in the screen
 7. Use the "Logout" button to end your session
 
 ## UI Screenshots
