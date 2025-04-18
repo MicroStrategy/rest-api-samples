@@ -30,9 +30,15 @@ async function generateCodeChallenge(codeVerifier) {
 const loginBtn = document.getElementById('loginBtn');
 const logoutBtn = document.getElementById('logoutBtn');
 const getTokenBtn = document.getElementById('getTokenBtn');
-const tokenDisplay = document.getElementById('tokenDisplay');
-const statusDiv = document.getElementById('status');
 const testApiBtn = document.getElementById('testApiBtn');
+
+const testResultDiv = document.getElementById('testResult');
+const responseDisplayDiv = document.getElementById('responseDisplay');
+
+const successStatus = document.getElementById('successStatus');
+const statusMessage = document.getElementById('statusMessage');
+const errorStatus = document.getElementById('errorStatus');
+const errorMessage = document.getElementById('errorMessage');
 
 // Check authentication status when popup opens
 document.addEventListener('DOMContentLoaded', async () => {
@@ -164,8 +170,8 @@ getTokenBtn.addEventListener('click', async () => {
         showStatus('Failed to get access token: ' + response.error, 'error');
       } else if (response.token) {
         // Display the token
-        tokenDisplay.textContent = response.token;
-        tokenDisplay.style.display = 'block';
+        responseDisplayDiv.textContent = response.token;
+        responseDisplayDiv.style.display = 'flex';
         showStatus('Access token retrieved successfully!', 'success');
       } else {
         showStatus('Failed to get access token: Unknown error', 'error');
@@ -203,8 +209,8 @@ testApiBtn.addEventListener('click', async () => {
 
     const userInfo = await response.json();
     // Display the user info
-    tokenDisplay.textContent = JSON.stringify(userInfo, null, 2);
-    tokenDisplay.style.display = 'block';
+    responseDisplayDiv.textContent = JSON.stringify(userInfo, null, 2);
+    responseDisplayDiv.style.display = 'flex';
     showStatus('User info retrieved successfully!', 'success');
   } catch (error) {
     console.error('API call error:', error);
@@ -214,15 +220,24 @@ testApiBtn.addEventListener('click', async () => {
 
 // Helper function to update UI based on authentication status
 function updateUI(isAuthenticated) {
-  loginBtn.style.display = isAuthenticated ? 'none' : 'block';
-  logoutBtn.style.display = isAuthenticated ? 'block' : 'none';
-  getTokenBtn.style.display = isAuthenticated ? 'block' : 'none';
-  testApiBtn.style.display = isAuthenticated ? 'block' : 'none';
-  tokenDisplay.style.display = 'none';
+  loginBtn.disabled = isAuthenticated ? true : false;
+  logoutBtn.disabled = isAuthenticated ? false : true;
+  getTokenBtn.disabled = isAuthenticated ? false : true;
+  testApiBtn.disabled = isAuthenticated ? false : true;
+  responseDisplayDiv.style.display = 'none';
 }
 
 // Helper function to show status messages
 function showStatus(message, type) {
-  statusDiv.textContent = message;
-  statusDiv.className = type;
+  testResultDiv.style.display = 'flex';
+  if (type === 'success') {
+    successStatus.style.display = 'flex';
+    errorStatus.style.display = 'none';
+    statusMessage.textContent = message;
+  } else {
+    errorStatus.style.display = 'flex';
+    successStatus.style.display = 'none';
+    errorMessage.textContent = message;
+    responseDisplayDiv.style.display = 'none';
+  }  
 }

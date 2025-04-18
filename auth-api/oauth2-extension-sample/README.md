@@ -1,6 +1,6 @@
 # OAuth2 Extension Sample
 
-<img src="./images/icon.png" alt="OAuth2 Extension Icon" width="100" height="100">
+![Extension Icon](images/icon128.png "OAuth2 Extension Icon")
 
 This Chrome extension demonstrates how to implement Strategy Library OAuth2 authentication in a Chrome extension. It provides a simple interface for users to authenticate with the Strategy Library and manage their authentication state.
 
@@ -119,16 +119,16 @@ This extension implements PKCE (Proof Key for Code Exchange) for enhanced securi
 ## UI Screenshots
 
 ### Login Screen
-<img src="./images/ui-sh-login-screen.png" alt="Extension Login Screen" width="300" height="160">
+<img src="./images/ui-sh-login-screen.png" alt="Extension Login Screen" width="180" height="295">
 
 ### Authenticated View
-<img src="./images/ui-sh-authenticated-view.png" alt="Extension Authenticated View" width="300" height="240">
+<img src="./images/ui-sh-authenticated-view.png" alt="Extension Authenticated View" width="180" height="295">
 
 ### Token Display
-<img src="./images/ui-sh-token-display.png" alt="Token Display View" width="300" height="280">
+<img src="./images/ui-sh-token-display.png" alt="Token Display View" width="180" height="295">
 
 ### Test API View
-<img src="./images/ui-sh-test-api-view.png" alt="Extension Authenticated View" width="300" height="300">
+<img src="./images/ui-sh-test-api-view.png" alt="Extension Authenticated View" width="180" height="295">
 
 ## Code Structure
 

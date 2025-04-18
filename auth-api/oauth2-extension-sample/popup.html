@@ -4,47 +4,127 @@
   <title>OAuth2 Extension Sample</title>
   <style>
     body {
-      width: 300px;
-      padding: 10px;
-      font-family: Arial, sans-serif;
+      width: 360px;
+      height: 590px;
+      border-radius: 6px;
+      margin: 0;
     }
     .container {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      align-items: center;
+      /* gap: 10px; */
+    }
+    h2 {
+      width: 300px;
+      height: 21px;
+      margin-top: 30px;
+      margin-bottom: 30px;
+      color: #29313B;
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 100%;
+      letter-spacing: 0;
+    }
+    #buttonList {
+      width: 300px;
+      height: 197px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px; 
+    }
+    p {
+      width: 300px;
+      height: 21px;
+      margin-top: 0px;
+      margin-bottom: 0px;
+      color: #29313B;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 16px;
+      letter-spacing: 0;
     }
     button {
-      padding: 8px 16px;
-      background-color: #4285f4;
-      color: white;
-      border: none;
+      width: 300px;
+      height: 32px;
       border-radius: 4px;
+      padding: 8px 12px 8px 12px;
+      background-color: #0E6FF9;
+      color: white;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 16px;
+      letter-spacing: 0;
+      border: none;
       cursor: pointer;
     }
     button:hover {
       background-color: #357abd;
     }
-    #status {
-      margin-top: 10px;
-      padding: 10px;
+    button:disabled {
+      background-color: #0E6FF93B;
+      cursor: default;
+    }
+    #testResult {
+      margin-top: 45px;
+      width: 300px;
+      height: 216px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    /* Test Status: success message */
+    #successStatus {
+      width: 300px;
+      height: 36px;
+
+      background-color: #20A76C1A;
       border-radius: 4px;
+      gap: 10px;
+      display: flex;
     }
-    .success {
-      background-color: #e6f4ea;
-      color: #137333;
+    #successIcon {
+      margin-left: 8px;
     }
-    .error {
-      background-color: #fce8e6;
-      color: #c5221f;
-    }
-    .token-display {
-      margin-top: 10px;
-      padding: 10px;
-      background-color: #f8f9fa;
-      border-radius: 4px;
-      word-break: break-all;
-      font-family: monospace;
+    #statusMessage {
+      color: #20A76C;
+      font-weight: 400;
       font-size: 12px;
+      line-height: 16px;
+      letter-spacing: 0;
+    }
+    /* Test Status: error message */
+    #errorStatus {
+      width: 300px;
+      height: 36px;
+      background-color: #D9232E1A;
+      border-radius: 4px;
+      gap: 10px;
+      display: flex;
+    }
+    #errorIcon {
+      margin-left: 8px;
+    }
+    #errorMessage {
+      color: #D9232E;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 16px;
+      letter-spacing: 0;
+    }
+
+    #responseDisplay {
+      width: 268px;
+      height: 135px;
+      border-radius: 4px;
+      padding: 16px;
+      gap: 10px;
+      background-color: #F7F8FA;
+      word-break: break-all;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 16px;
+      letter-spacing: 0;
       max-height: 100px;
       overflow-y: auto;
     }
@@ -53,12 +133,25 @@
 <body>
   <div class="container">
     <h2>OAuth2 Extension Sample</h2>
-    <button id="loginBtn">Login with OAuth2</button>
-    <button id="logoutBtn" style="display: none;">Logout</button>
-    <button id="getTokenBtn" style="display: none;">Refresh Access Token</button>
-    <button id="testApiBtn" style="display: none;">Test API</button>
-    <div id="tokenDisplay" class="token-display" style="display: none;"></div>
-    <div id="status"></div>
+    <div id="buttonList">
+      <p>Select from the actions below to test</p>
+      <button id="loginBtn">Login with OAuth2</button>
+      <button id="logoutBtn" disabled>Logout</button>
+      <button id="getTokenBtn" disabled>Refresh Access Token</button>
+      <button id="testApiBtn" disabled>Test API</button>
+    </div>
+    <div id="testResult" style="display: none;">
+      <p>Test result</p>
+      <div id="responseDisplay"></div>
+      <div id="successStatus" style="align-items: center;">
+          <img id="successIcon" src="./images/success.svg" width="18" height="18" alt="Success">
+          <span id="statusMessage"></span>
+      </div>
+      <div id="errorStatus" style="align-items: center;">
+        <img id="errorIcon" src="./images/error.svg" width="18" height="18" alt="Error">
+        <span id="errorMessage"></span>
+      </div>
+   </div>
   </div>
   <script src="popup.js"></script>
 </body>
