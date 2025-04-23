@@ -204,7 +204,7 @@ testApiBtn.addEventListener('click', async () => {
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.error_description || errorData.error || 'API call failed');
+      throw new Error(errorData.message || errorData.errorDescription || errorData.error || 'API call failed');
     }
 
     const userInfo = await response.json();
