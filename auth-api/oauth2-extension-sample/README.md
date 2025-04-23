@@ -81,16 +81,19 @@ This extension implements PKCE (Proof Key for Code Exchange) for enhanced securi
 ## Setup Instructions
 
 1. **Configure OAuth2 Provider**
-  - Configure a new Client in Library OAuth2 Configuration and record these values
-    - Authorization Endpoint
-    - Token Endpoint
-    - Client ID
-    - Client Secret
+   - Configure a new Client in Library OAuth2 Configuration and record these values
+     - Authorization Endpoint
+     - Token Endpoint
+     - Client ID
+     - Client Secret
    - Configure the redirect URI:
      ```
      https://<your-extension-id>.chromiumapp.org/
      ```
    - Note your extension ID from Chrome's extension management page
+   - Check "Refresh Token" checkbox
+     - Enable "Refresh Token": This is required for this sample project and "offline_access" should be added into scope
+     - Disable "Refresh Token": Refresh access token won't work, but login can work after removing "offline_access" from scope
 
 2. **Load the Extension**
    - Open Chrome and go to `chrome://extensions/`
